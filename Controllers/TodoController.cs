@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using ServiceSandec.Models;
 using ServiceSandec.Repositories;
 
@@ -15,9 +16,9 @@ namespace ServiceSandec.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var todoItems = _todoRepository.GetAll();
+            var todoItems = await _todoRepository.GetAll();
             return Ok(todoItems);
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using ServiceSandec.Models;
 
 namespace ServiceSandec.Repositories
@@ -15,9 +16,9 @@ namespace ServiceSandec.Repositories
             _todoContext = context;
         }
 
-        public IEnumerable<Todo> GetAll()
+        public Task<List<Todo>> GetAll()
         {
-            return _todoContext.TodoItems.OrderByDescending(c => c.Id).ToList();
+            return _todoContext.TodoItems.OrderByDescending(c => c.Id).ToListAsync();
         }
 
         public Todo Get(long id)
@@ -26,23 +27,23 @@ namespace ServiceSandec.Repositories
                 .FirstOrDefault(e => e.Id == id);
         }
 
-        public void Add(Todo entity)
+        public Task Add(Todo entity)
         {
-            _todoContext.TodoItems.Add(entity);
-            _todoContext.SaveChanges();
+            _todoContext.TodoItems.AddAsync(entity);
+            return _todoContext.SaveChangesAsync();
         }
 
-        public void Update(Todo dbEntity, Todo entity)
+        public Task Update(Todo dbEntity, Todo entity)
         {
             dbEntity.Name = entity.Name;
             dbEntity.IsComplete = entity.IsComplete;
-            _todoContext.SaveChanges();
+            return _todoContext.SaveChangesAsync();
         }
 
-        public void Delete(Todo entity)
+        public Task Delete(Todo entity)
         {
             _todoContext.TodoItems.Remove(entity);
-            _todoContext.SaveChanges();
+            return _todoContext.SaveChangesAsync();
         }
     }
 }

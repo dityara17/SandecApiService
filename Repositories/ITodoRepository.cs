@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ServiceSandec.Models;
 
 namespace ServiceSandec.Repositories
 {
     public interface  ITodoRepository<TEntity>
     { 
-        IEnumerable<TEntity> GetAll();
+        Task<List<Todo>> GetAll();
         TEntity Get(long id);
-        void Add(TEntity entity);
-        void Update(TEntity dbEntity, TEntity entity);
-        void Delete(TEntity entity);
+        Task Add(TEntity entity);
+        Task Update(TEntity dbEntity, TEntity entity);
+        Task Delete(TEntity entity);
     }
 }
