@@ -1,6 +1,6 @@
 ---
 applications:
-- name: SandecApiService
+- name: ServiceSandec
   random-route: true
   memory: 512M
   env:
